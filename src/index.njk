@@ -1,0 +1,37 @@
+---
+layout: base.njk
+nav: notes
+pageTitle: false
+---
+    <div class="column">
+      <h1 class="visually-hidden">Notes</h1>
+      <h2 class="section-label">Notes</h2>
+      <ol class="post-list">
+        {%- for note in collections.notes %}
+        <li>
+          <article class="post-teaser">
+            <p class="meta post-teaser__meta"><span class="marker" aria-hidden="true"></span><time datetime="{{ note.date | isoDate }}">{{ note.date | longDate }}</time> · {{ note.data.category }} · {{ note.data.status }}</p>
+            <h2><a href="{{ note.url }}">{{ note.data.title }}</a></h2>
+            <p class="byline">{{ note.data.author or site.author }}</p>
+            {%- for p in note.data.excerpt | paragraphs %}
+            <p>{{ p }}</p>
+            {%- endfor %}
+            <p class="more"><a href="{{ note.url }}">Continue reading<span class="visually-hidden">: {{ note.data.title }}</span></a></p>
+          </article>
+        </li>
+        {%- endfor %}
+      </ol>
+
+      <section class="about-block" aria-labelledby="about-pub">
+        <h2 id="about-pub">{{ home.about_heading }}</h2>
+        <p>{{ home.about_text }}</p>
+        <p class="more"><a href="/about/">{{ home.about_link }}</a></p>
+      </section>
+
+      {%- if home.draft_note %}
+      <div class="draft-note">
+        <p>{{ home.draft_note }}</p>
+        <p><a href="/about/#how-ai-is-used">AI-use statement</a></p>
+      </div>
+      {%- endif %}
+    </div>

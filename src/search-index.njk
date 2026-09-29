@@ -1,0 +1,10 @@
+---
+permalink: /assets/search-index.js
+eleventyExcludeFromCollections: true
+---
+/* Generated at build time from all pages with a searchType. */
+window.PAIR_SEARCH_INDEX = [
+{%- for item in collections.searchable %}
+  {{ { url: (item.url | htmlBaseUrl), type: item.data.searchType, title: item.data.title, text: ((item.data.standfirst or "") ~ " " ~ (item.content | plain)) | trim } | toJson | safe }}{% if not loop.last %},{% endif %}
+{%- endfor %}
+];

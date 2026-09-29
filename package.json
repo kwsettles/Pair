@@ -1,0 +1,16 @@
+{
+  "name": "pair-site",
+  "version": "1.0.0",
+  "description": "PAIR · Parliamentary AI Review",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "author": "Kevin W. Settles",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "markdown-it-anchor": "^10.0.0"
+  },
+  "private": true
+}

@@ -1,0 +1,15 @@
+---
+layout: base.njk
+---
+    <div class="column prose">
+      <h1>{{ title }}</h1>
+      {%- if intro %}
+      <p class="page-intro">{{ intro }}</p>
+      {%- endif %}
+{{ content | safe }}
+      {%- if draft_note %}
+      <div class="draft-note">
+        <p>{{ draft_note }}</p>
+      </div>
+      {%- endif %}
+    </div>

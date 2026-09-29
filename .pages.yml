@@ -1,0 +1,122 @@
+# Pages CMS configuration (https://pagescms.org). Edits here become commits;
+# every commit to main rebuilds the site through .github/workflows/deploy.yml.
+media:
+  input: src/assets/media
+  output: /assets/media
+
+content:
+  - name: notes
+    label: Notes
+    type: collection
+    path: src/notes
+    filename: "{primary}.md"
+    format: yaml-frontmatter
+    exclude: [notes.11tydata.js]
+    view:
+      fields: [title, date, status, version]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date (first dated), type: date, required: true }
+      - { name: updated, label: Last revised, type: date }
+      - { name: published, label: Published (not a draft), type: boolean, default: false }
+      - name: category
+        label: Category
+        type: select
+        default: Field note
+        options: { values: [Editorial, Field note, Case profile, Comparative note] }
+      - name: status
+        label: Status
+        type: select
+        default: Draft
+        options: { values: [Draft, Reviewed, Published, Updated] }
+      - { name: version, label: Version, type: string, default: "0.1", description: "Raise it for every substantive text change and add a line to the version history." }
+      - { name: description, label: Short description (search engines, link previews), type: string }
+      - { name: standfirst, label: Standfirst, type: text }
+      - { name: excerpt, label: Excerpt on the Notes page (blank line between paragraphs), type: text }
+      - { name: body, label: Text, type: rich-text }
+      - { name: ai_note, label: AI use and review status, type: text, required: true, description: "Name the tool, the tasks it assisted with and the review status." }
+      - name: sources
+        label: Sources
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Source, type: string }
+          - { name: url, label: URL, type: string }
+          - { name: note, label: Note (e.g. accessed date, supplier account), type: string }
+      - { name: sources_note, label: Text shown if no sources are listed, type: string }
+      - { name: citation, label: Suggested citation, type: text }
+      - name: versions
+        label: Version history (newest first)
+        type: object
+        list: true
+        fields:
+          - { name: version, label: Version, type: string }
+          - { name: date, label: Date, type: date }
+          - { name: change, label: What changed, type: string }
+
+  - name: about
+    label: About page
+    type: file
+    path: src/about.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Text, type: rich-text }
+
+  - name: method
+    label: Method page
+    type: file
+    path: src/method.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: intro, label: Introduction, type: text }
+      - { name: body, label: Text, type: rich-text }
+      - { name: draft_note, label: Note at the end, type: text }
+
+  - name: home
+    label: Notes page texts
+    type: file
+    path: src/_data/home.json
+    format: json
+    fields:
+      - { name: about_heading, label: About heading, type: string }
+      - { name: about_text, label: About text, type: text }
+      - { name: about_link, label: About link text, type: string }
+      - { name: draft_note, label: Draft note (leave empty to hide), type: text }
+
+  - name: legal
+    label: Legal notice
+    type: file
+    path: src/legal-notice.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Text, type: rich-text }
+      - { name: draft_note, label: Placeholder note (empty when complete), type: text }
+
+  - name: privacy
+    label: Privacy
+    type: file
+    path: src/privacy.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Text, type: rich-text }
+      - { name: draft_note, label: Placeholder note (empty when complete), type: text }
+
+  - name: settings
+    label: Site settings
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - { name: title, label: Site title, type: string }
+      - { name: author, label: Author, type: string }
+      - { name: previewLabel, label: Preview label in navigation (empty to hide), type: string }
+      - { name: noindex, label: Hide from search engines, type: boolean, description: "Switch off only when the site is ready to be public." }

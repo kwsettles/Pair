@@ -1,0 +1,51 @@
+---
+layout: base.njk
+---
+    <article class="column prose">
+      <header class="article-header">
+        <p class="meta"><span class="marker" aria-hidden="true"></span>{{ category }} · {{ status }} · Version {{ version }}</p>
+        <h1>{{ title }}</h1>
+        <p class="byline">{{ author or site.author }}</p>
+        {%- if standfirst %}
+        <p class="standfirst">{{ standfirst }}</p>
+        {%- endif %}
+        <dl class="dates">
+          <dt>{% if published %}Published{% else %}Draft dated{% endif %}</dt><dd><time datetime="{{ page.date | isoDate }}">{{ page.date | longDate }}</time></dd>
+          <dt>Last revised</dt><dd><time datetime="{{ (updated or page.date) | isoDate }}">{{ (updated or page.date) | longDate }}</time> (v{{ version }})</dd>
+          {%- if not published %}
+          <dt>Published</dt><dd>Not yet published</dd>
+          {%- endif %}
+        </dl>
+      </header>
+
+{{ content | safe }}
+
+      <footer class="endmatter">
+        <h2 id="ai-use">AI use and review status</h2>
+        {%- for p in ai_note | paragraphs %}
+        <p>{{ p }}</p>
+        {%- endfor %}
+        <p><a href="/about/#how-ai-is-used">AI-use statement</a></p>
+
+        <h2 id="sources">Sources</h2>
+        {%- if sources and sources.length %}
+        <ul>
+          {%- for s in sources %}
+          <li>{% if s.url %}<a href="{{ s.url }}">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}{% if s.note %} · {{ s.note }}{% endif %}</li>
+          {%- endfor %}
+        </ul>
+        {%- else %}
+        <p class="muted">{{ sources_note or "No sources listed." }}</p>
+        {%- endif %}
+
+        <h2 id="citation">Suggested citation</h2>
+        <p class="muted">{{ citation or "A suggested citation will be added when the note is published. No DOI has been registered for this preview." }}</p>
+
+        <h2 id="versions">Version history</h2>
+        <ul>
+          {%- for v in versions %}
+          <li>v{{ v.version }} · {{ v.date | longDate }} · {{ v.change }}</li>
+          {%- endfor %}
+        </ul>
+      </footer>
+    </article>

@@ -1,0 +1,20 @@
+---
+layout: base.njk
+permalink: /search/
+title: Search
+eleventyExcludeFromCollections: true
+scripts:
+  - /assets/search-index.js
+  - /assets/search.js
+---
+    <div class="column">
+      <h1>Search</h1>
+      <form class="search-page-form" role="search" action="/search/" method="get">
+        <label class="visually-hidden" for="page-search">Search notes and pages</label>
+        <input id="page-search" name="q" type="search" autocomplete="off">
+        <button type="submit">Search</button>
+      </form>
+      <p class="search-status" id="search-status" role="status" aria-live="polite">Enter a search term to search notes, Method and About.</p>
+      <ol class="results" id="results"></ol>
+      <noscript><p>Search needs JavaScript. All pages are also reachable from the navigation above.</p></noscript>
+    </div>
