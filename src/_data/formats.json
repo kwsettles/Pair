@@ -1,6 +1,34 @@
 {
-  "Brief": { "key": "brief", "plural": "Briefs" },
-  "Case Profile": { "key": "case", "plural": "Case Profiles" },
-  "Comparative Note": { "key": "comparative", "plural": "Comparative Notes" },
-  "Editorial": { "key": "editorial", "plural": "Editorials" }
+  "Brief": {
+    "key": "brief",
+    "plural": "Briefs",
+    "nav": "Briefs",
+    "url": "/briefs/",
+    "color": "#7A802F",
+    "description": "Short reports on one development: a new application, a change in deployment status, a material change in workflow or a governance decision."
+  },
+  "Case Profile": {
+    "key": "case",
+    "plural": "Case Profiles",
+    "nav": "Cases",
+    "url": "/cases/",
+    "color": "#8E3B2A",
+    "description": "Profiles of individual systems, updated as new evidence appears, each with a stable case ID."
+  },
+  "Comparative Note": {
+    "key": "comparative",
+    "plural": "Comparative Notes",
+    "nav": "Comparisons",
+    "url": "/comparisons/",
+    "color": "#A9790F",
+    "description": "Arguments across several cases. Longer than a Brief and closer to a working paper."
+  },
+  "Editorial": {
+    "key": "editorial",
+    "plural": "Editorials",
+    "nav": "",
+    "url": "",
+    "color": "#5E2A45",
+    "description": "Notes on the project itself and on changes to its methods."
+  }
 }

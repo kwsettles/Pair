@@ -4,6 +4,7 @@
   "use strict";
 
   var index = window.PAIR_SEARCH_INDEX || [];
+  var FORMAT_MARKER = {"Brief": "brief", "Case Profile": "case", "Comparative Note": "comparative", "Editorial": "editorial"};
   var params = new URLSearchParams(window.location.search);
   var query = (params.get("q") || "").trim();
 
@@ -91,7 +92,7 @@
     var meta = document.createElement("p");
     meta.className = "meta";
     var marker = document.createElement("span");
-    marker.className = "marker";
+    marker.className = "marker" + (FORMAT_MARKER[h.e.type] ? " marker--" + FORMAT_MARKER[h.e.type] : "");
     marker.setAttribute("aria-hidden", "true");
     meta.appendChild(marker);
     meta.appendChild(document.createTextNode(h.e.type));

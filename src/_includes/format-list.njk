@@ -1,0 +1,27 @@
+---
+layout: base.njk
+---
+{%- set f = formats[listFormat] %}
+{%- set items = collections.notes | selectattr("data.format", "equalto", listFormat) %}
+    <div class="column">
+      <h1><span class="marker marker--{{ f.key }}" aria-hidden="true"></span>{{ f.plural }}</h1>
+      <p class="format-intro">{{ f.description }} <a href="/method/">Method</a></p>
+      <ol class="post-list">
+        {%- for note in items %}
+        <li>
+          <article class="post-teaser">
+            <p class="meta post-teaser__meta"><span class="marker marker--{{ f.key }}" aria-hidden="true"></span><time datetime="{{ note.date | isoDate }}">{{ note.date | longDate }}</time> · {{ note.data.format }} · {{ note.data.status }}</p>
+            <h2><a href="{{ note.url }}">{{ note.data.title }}</a></h2>
+            <p class="byline">{{ people | pick(note.data.authors) | nameList }}</p>
+            {%- for p in note.data.excerpt | paragraphs %}
+            <p>{{ p }}</p>
+            {%- endfor %}
+            <p class="more"><a href="{{ note.url }}">Continue reading<span class="visually-hidden">: {{ note.data.title }}</span></a></p>
+          </article>
+        </li>
+        {%- endfor %}
+      </ol>
+      {%- if not items.length %}
+      <p class="empty">No {{ f.plural }} have been published yet.</p>
+      {%- endif %}
+    </div>

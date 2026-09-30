@@ -1,6 +1,6 @@
 ---
 layout: note.njk
-nav: notes
+nav: briefs
 title: "[Title of a Brief: one development in one parliament]"
 date: 2026-09-30
 updated: 2026-09-30

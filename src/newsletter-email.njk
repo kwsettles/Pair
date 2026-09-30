@@ -35,7 +35,7 @@ eleventyExcludeFromCollections: true
     <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1F1F1F;">{{ issue.content | emailify | safe }}</div>
     <h2 style="font-family:Georgia,'Times New Roman',serif;font-weight:normal;font-size:22px;margin:28px 0 8px;color:#1F1F1F;">New contributions</h2>
     {%- for n in newItems %}
-    <p style="margin:0 0 4px;font-size:13px;color:#66635F;">{{ n.data.format }}{% if n.data.case_id %} · {{ n.data.case_id }}{% endif %} · {{ people | pick(n.data.authors) | nameList }}</p>
+    <p style="margin:0 0 4px;font-size:13px;color:#66635F;"><span style="display:inline-block;width:9px;height:9px;background:{{ formats[n.data.format].color }};margin-right:6px;"></span>{{ n.data.format }}{% if n.data.case_id %} · {{ n.data.case_id }}{% endif %} · {{ people | pick(n.data.authors) | nameList }}</p>
     <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;font-size:19px;"><a href="{{ base }}{{ n.url }}" style="color:#5E6325;">{{ n.data.title }}</a></p>
     {%- if n.data.standfirst or n.data.summary %}<p style="margin:0 0 18px;font-size:15px;">{{ n.data.standfirst or n.data.summary }}</p>{% endif %}
     {%- else %}

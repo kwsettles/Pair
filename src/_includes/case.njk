@@ -4,6 +4,7 @@ layout: base.njk
     <article class="column prose contribution">
       <header class="article-header article-header--case">
         <p class="meta"><span class="marker marker--case" aria-hidden="true"></span>Case Profile · {{ case_id }} · {{ status }} · Version {{ version }}</p>
+        <span class="format-rule format-rule--case" aria-hidden="true"></span>
         <h1>{{ title }}</h1>
         {% include "byline.njk" %}
         {%- if summary %}

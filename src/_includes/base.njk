@@ -38,7 +38,9 @@
     <div class="site-nav__inner">
       <ul>
         <li><a href="/"{% if nav == "notes" %} aria-current="page"{% endif %}>Notes</a></li>
-        <li><a href="/cases/"{% if nav == "cases" %} aria-current="page"{% endif %}>Cases</a></li>
+        <li><a class="nav--brief" href="/briefs/"{% if nav == "briefs" %} aria-current="page"{% endif %}><span class="marker marker--brief" aria-hidden="true"></span>Briefs</a></li>
+        <li><a class="nav--case" href="/cases/"{% if nav == "cases" %} aria-current="page"{% endif %}><span class="marker marker--case" aria-hidden="true"></span>Cases</a></li>
+        <li><a class="nav--comparative" href="/comparisons/"{% if nav == "comparisons" %} aria-current="page"{% endif %}><span class="marker marker--comparative" aria-hidden="true"></span>Comparisons</a></li>
         <li><a href="/method/"{% if nav == "method" %} aria-current="page"{% endif %}>Method</a></li>
         <li><a href="/about/"{% if nav == "about" %} aria-current="page"{% endif %}>About</a></li>
       </ul>
