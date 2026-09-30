@@ -1,32 +1,38 @@
 ---
 title: Why keep a record of parliamentary AI?
-date: 2026-09-29
-updated: 2026-09-29
-published: false
 format: Editorial
-version: "0.2"
-description: An opening note on what PAIR hopes to contribute.
-standfirst: My monitoring keeps turning up developments that deserve a closer look. A research paper cannot be the place for every one of them.
-excerpt: |-
-  My monitoring keeps turning up developments that deserve a closer look. A research paper cannot be the place for every one of them.
+date: 2026-09-29
+standfirst: My monitoring keeps turning up developments that deserve a closer
+  look. A research paper cannot be the place for every one of them.
+ai_note: ChatGPT drafted and revised this text from Kevin’s stated research aims
+  and the discussion about this project. Kevin’s editorial review is pending.
+  This draft contains no empirical case findings.
+published: false
+excerpt: >-
+  My monitoring keeps turning up developments that deserve a closer look. A
+  research paper cannot be the place for every one of them.
 
-  This blog is a place to document those developments, follow the evidence and work through the questions they raise. An opening note on what I hope it will contribute.
-ai_note: ChatGPT drafted and revised this text from Kevin’s stated research aims and the discussion about this project. Kevin’s editorial review is pending. This draft contains no empirical case findings.
-sources: []
-sources_note: This note cites no sources. It contains no empirical case findings.
-cases: []
-last_verified:
-doi: ""
-citation: ""
+
+  This blog is a place to document those developments, follow the evidence and
+  work through the questions they raise. An opening note on what I hope it will
+  contribute.
+updated: 2026-09-29
+version: "0.2"
 versions:
   - version: "0.2"
     date: 2026-09-29
-    change: Rewritten as a personal statement of purpose; AI assistance and pending review disclosed.
+    change: Rewritten as a personal statement of purpose; AI assistance and pending
+      review disclosed.
   - version: "0.1"
     date: 2026-09-29
     change: Initial editorial draft.
+last_verified: 2026-09-30
+received: 2026-09-30
+accepted: 2026-09-30
+description: An opening note on what PAIR hopes to contribute.
+sources_note: This note cites no sources. It contains no empirical case findings.
+withdrawn: false
 ---
-
 This blog starts from a practical problem in my research. I need to follow what parliaments are doing with AI, but new information does not arrive on a publication schedule. A short report can preserve a useful observation while the larger research questions are still being worked through.
 
 I want those reports to be useful to other people too. That means giving readers enough detail to understand a case, follow its sources and decide whether my interpretation is convincing.
