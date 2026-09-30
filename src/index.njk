@@ -10,7 +10,7 @@ pageTitle: false
         {%- for note in collections.notes %}
         <li>
           <article class="post-teaser">
-            <p class="meta post-teaser__meta"><span class="marker" aria-hidden="true"></span><time datetime="{{ note.date | isoDate }}">{{ note.date | longDate }}</time> · {{ note.data.category }} · {{ note.data.status }}</p>
+            <p class="meta post-teaser__meta"><span class="marker marker--{{ formats[note.data.format].key }}" aria-hidden="true"></span><time datetime="{{ note.date | isoDate }}">{{ note.date | longDate }}</time> · {{ note.data.format }} · {{ note.data.status }}</p>
             <h2><a href="{{ note.url }}">{{ note.data.title }}</a></h2>
             <p class="byline">{{ note.data.author or site.author }}</p>
             {%- for p in note.data.excerpt | paragraphs %}

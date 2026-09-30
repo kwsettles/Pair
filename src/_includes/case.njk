@@ -1,0 +1,54 @@
+---
+layout: base.njk
+---
+    <article class="column prose contribution">
+      <header class="article-header article-header--case">
+        <p class="meta"><span class="marker marker--case" aria-hidden="true"></span>Case Profile · {{ case_id }} · {{ status }} · Version {{ version }}</p>
+        <h1>{{ title }}</h1>
+        <p class="byline">{{ author or site.author }}</p>
+        {%- if summary %}
+        <p class="standfirst">{{ summary }}</p>
+        {%- endif %}
+      </header>
+
+      <section class="factsheet" aria-labelledby="facts">
+        <h2 id="facts" class="visually-hidden">Case summary</h2>
+        <dl>
+          <dt>Case ID</dt><dd>{{ case_id }}</dd>
+          <dt>Parliament</dt><dd>{{ parliament }}{% if country %}, {{ country }}{% endif %}</dd>
+          {%- if unit %}<dt>Unit</dt><dd>{{ unit }}</dd>{% endif %}
+          <dt>Task</dt><dd>{{ task }}</dd>
+          <dt>Parliamentary function</dt><dd>{{ function }}</dd>
+          <dt>Development</dt><dd>{{ provider }}{% if provider_name %} ({{ provider_name }}){% endif %}</dd>
+          <dt>Deployment status</dt><dd>{{ deployment_status }}{% if status_basis %} <span class="muted">· {{ status_basis }}</span>{% endif %}</dd>
+          <dt>First evidence</dt><dd>{{ first_evidence | longDate if first_evidence else "Unclear" }}</dd>
+          <dt>Status last verified</dt><dd>{{ last_verified | longDate if last_verified else "Not yet verified" }}</dd>
+        </dl>
+      </section>
+
+      <dl class="dates">
+        <dt>{% if published %}Published{% else %}Draft dated{% endif %}</dt><dd><time datetime="{{ page.date | isoDate }}">{{ page.date | longDate }}</time></dd>
+        <dt>Last revised</dt><dd><time datetime="{{ (updated or page.date) | isoDate }}">{{ (updated or page.date) | longDate }}</time> (v{{ version }})</dd>
+        {%- if not published %}
+        <dt>Published</dt><dd>Not yet published</dd>
+        {%- endif %}
+      </dl>
+
+      <div class="body">
+{{ content | safe }}
+      </div>
+
+      {%- set related = collections.notes | notesForCase(case_id) %}
+      {%- if related.length %}
+      <section class="related">
+        <h2 id="related">Notes on this case</h2>
+        <ul>
+          {%- for n in related %}
+          <li><a href="{{ n.url }}">{{ n.data.title }}</a> · {{ n.data.format }} · {{ n.date | longDate }}</li>
+          {%- endfor %}
+        </ul>
+      </section>
+      {%- endif %}
+
+{% include "endmatter.njk" %}
+    </article>

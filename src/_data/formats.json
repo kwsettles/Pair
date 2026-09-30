@@ -1,0 +1,6 @@
+{
+  "Brief": { "key": "brief", "plural": "Briefs" },
+  "Case Profile": { "key": "case", "plural": "Case Profiles" },
+  "Comparative Note": { "key": "comparative", "plural": "Comparative Notes" },
+  "Editorial": { "key": "editorial", "plural": "Editorials" }
+}

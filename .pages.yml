@@ -6,35 +6,35 @@ media:
 
 content:
   - name: notes
-    label: Notes
+    label: Notes (Briefs, Comparative Notes, Editorials)
     type: collection
     path: src/notes
     filename: "{primary}.md"
     format: yaml-frontmatter
     exclude: [notes.11tydata.js]
     view:
-      fields: [title, date, status, version]
+      fields: [title, format, date, status, version]
       primary: title
       sort: [date, title]
-      default:
-        sort: date
-        order: desc
+      default: { sort: date, order: desc }
     fields:
       - { name: title, label: Title, type: string, required: true }
+      - name: format
+        label: Format
+        type: select
+        default: Brief
+        options: { values: [Brief, Comparative Note, Editorial] }
       - { name: date, label: Date (first dated), type: date, required: true }
       - { name: updated, label: Last revised, type: date }
+      - { name: last_verified, label: Sources last checked, type: date }
       - { name: published, label: Published (not a draft), type: boolean, default: false }
-      - name: category
-        label: Category
-        type: select
-        default: Field note
-        options: { values: [Editorial, Field note, Case profile, Comparative note] }
       - name: status
         label: Status
         type: select
         default: Draft
-        options: { values: [Draft, Reviewed, Published, Updated] }
+        options: { values: [Draft, Published, Updated, Withdrawn] }
       - { name: version, label: Version, type: string, default: "0.1", description: "Raise it for every substantive text change and add a line to the version history." }
+      - { name: cases, label: Case IDs this note concerns, type: string, list: true }
       - { name: description, label: Short description (search engines, link previews), type: string }
       - { name: standfirst, label: Standfirst, type: text }
       - { name: excerpt, label: Excerpt on the Notes page (blank line between paragraphs), type: text }
@@ -45,11 +45,88 @@ content:
         type: object
         list: true
         fields:
+          - name: type
+            label: Source type
+            type: select
+            options: { values: [Institutional, Supplier, Media, Interview, PAIR inference] }
           - { name: title, label: Source, type: string }
           - { name: url, label: URL, type: string }
-          - { name: note, label: Note (e.g. accessed date, supplier account), type: string }
+          - { name: note, label: Note (e.g. accessed date), type: string }
       - { name: sources_note, label: Text shown if no sources are listed, type: string }
-      - { name: citation, label: Suggested citation, type: text }
+      - { name: doi, label: DOI (only once registered on Zenodo), type: string }
+      - { name: citation, label: Citation override (leave empty for the automatic one), type: text }
+      - name: versions
+        label: Version history (newest first)
+        type: object
+        list: true
+        fields:
+          - { name: version, label: Version, type: string }
+          - { name: date, label: Date, type: date }
+          - { name: change, label: What changed, type: string }
+
+  - name: cases
+    label: Case Profiles
+    type: collection
+    path: src/cases
+    filename: "{fields.case_id}.md"
+    format: yaml-frontmatter
+    exclude: [cases.11tydata.js]
+    view:
+      fields: [case_id, title, deployment_status, last_verified]
+      primary: title
+      sort: [case_id, last_verified]
+      default: { sort: case_id, order: asc }
+    fields:
+      - { name: case_id, label: "Case ID (PAIR-XXX-YY-001, never change or reuse)", type: string, required: true, description: "Pattern PAIR-[country code]-[chamber]-[three digits]. The URL is built from it." }
+      - { name: title, label: "Title (system name, parliament)", type: string, required: true }
+      - { name: summary, label: One-sentence summary, type: text }
+      - { name: country, label: Country, type: string }
+      - { name: parliament, label: Parliament / chamber, type: string, required: true }
+      - { name: unit, label: Administrative unit, type: string }
+      - { name: task, label: Task, type: string, required: true }
+      - name: function
+        label: Parliamentary function
+        type: select
+        options: { values: [Legislation, Scrutiny, Representation and communication, Records and documentation, Research and information, Administration, Unclear] }
+      - name: provider
+        label: Development
+        type: select
+        options: { values: [In-house, Vendor, Mixed, Unclear] }
+      - { name: provider_name, label: Supplier name, type: string }
+      - name: deployment_status
+        label: Deployment status
+        type: select
+        required: true
+        options: { values: [Announced, Pilot, Operational, Discontinued, Unclear] }
+      - { name: status_basis, label: "Status rests on (e.g. institutional source; supplier account only)", type: string }
+      - { name: first_evidence, label: First evidence, type: date }
+      - { name: last_verified, label: Status last verified, type: date }
+      - { name: date, label: Profile first dated, type: date, required: true }
+      - { name: updated, label: Last revised, type: date }
+      - { name: published, label: Published (not a draft), type: boolean, default: false }
+      - name: status
+        label: Editorial status
+        type: select
+        default: Draft
+        options: { values: [Draft, Published, Updated, Withdrawn] }
+      - { name: version, label: Version, type: string, default: "0.1" }
+      - { name: body, label: Text, type: rich-text }
+      - { name: ai_note, label: AI use and review status, type: text, required: true }
+      - name: sources
+        label: Sources
+        type: object
+        list: true
+        fields:
+          - name: type
+            label: Source type
+            type: select
+            options: { values: [Institutional, Supplier, Media, Interview, PAIR inference] }
+          - { name: title, label: Source, type: string }
+          - { name: url, label: URL, type: string }
+          - { name: note, label: Note (e.g. accessed date), type: string }
+      - { name: sources_note, label: Text shown if no sources are listed, type: string }
+      - { name: doi, label: DOI (only once registered on Zenodo), type: string }
+      - { name: citation, label: Citation override (leave empty for the automatic one), type: text }
       - name: versions
         label: Version history (newest first)
         type: object
@@ -118,5 +195,10 @@ content:
     fields:
       - { name: title, label: Site title, type: string }
       - { name: author, label: Author, type: string }
+      - { name: author_bibtex, label: "Author for BibTeX (Surname, First names)", type: string }
+      - { name: orcid, label: ORCID URL, type: string }
+      - { name: url, label: "Site address, without trailing slash (used in citations)", type: string }
+      - { name: licence, label: Licence, type: string }
+      - { name: licence_url, label: Licence URL, type: string }
       - { name: previewLabel, label: Preview label in navigation (empty to hide), type: string }
       - { name: noindex, label: Hide from search engines, type: boolean, description: "Switch off only when the site is ready to be public." }

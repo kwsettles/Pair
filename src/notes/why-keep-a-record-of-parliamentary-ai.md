@@ -3,7 +3,7 @@ title: Why keep a record of parliamentary AI?
 date: 2026-09-29
 updated: 2026-09-29
 published: false
-category: Editorial
+format: Editorial
 status: Draft
 version: "0.2"
 description: An opening note on what PAIR hopes to contribute.
@@ -15,6 +15,9 @@ excerpt: |-
 ai_note: ChatGPT drafted and revised this text from Kevin’s stated research aims and the discussion about this project. Kevin’s editorial review is pending. This draft contains no empirical case findings.
 sources: []
 sources_note: This note cites no sources. It contains no empirical case findings.
+cases: []
+last_verified:
+doi: ""
 citation: ""
 versions:
   - version: "0.2"

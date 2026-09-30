@@ -1,0 +1,29 @@
+      <footer class="endmatter">
+        <h2 id="ai-use">AI use and review status</h2>
+        {%- for p in ai_note | paragraphs %}
+        <p>{{ p }}</p>
+        {%- endfor %}
+        <p><a href="/about/#how-ai-is-used">AI-use statement</a></p>
+
+        <h2 id="sources">Sources</h2>
+        {%- if sources and sources.length %}
+        <ol class="sources">
+          {%- for s in sources %}
+          <li id="s{{ loop.index }}"><span class="source-type">{{ s.type or "Source type not stated" }}</span> {% if s.url %}<a href="{{ s.url }}">{{ s.title }}</a>{% else %}{{ s.title }}{% endif %}{% if s.note %}. {{ s.note }}{% endif %}</li>
+          {%- endfor %}
+        </ol>
+        {%- else %}
+        <p class="muted">{{ sources_note or "No sources listed." }}</p>
+        {%- endif %}
+
+        {% include "cite.njk" %}
+
+        <h2 id="versions">Version history</h2>
+        <ul class="versions">
+          {%- for v in versions %}
+          <li>v{{ v.version }} · {{ v.date | longDate }} · {{ v.change }}</li>
+          {%- endfor %}
+        </ul>
+
+        <p class="licence muted">{% if published %}Text licensed under <a href="{{ site.licence_url }}">{{ site.licence }}</a> unless stated otherwise.{% else %}Draft. Licence applies on publication.{% endif %}</p>
+      </footer>

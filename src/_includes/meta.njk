@@ -1,0 +1,24 @@
+{#- Machine-readable citation metadata, only for published contributions. -#}
+{%- if contribution and published %}
+  <meta name="citation_title" content="{{ title }}">
+  <meta name="citation_author" content="{{ author or site.author }}">
+  <meta name="citation_publication_date" content="{{ page.date | isoDate }}">
+  <meta name="citation_online_date" content="{{ (updated or page.date) | isoDate }}">
+  {%- if doi %}
+  <meta name="citation_doi" content="{{ doi }}">
+  {%- endif %}
+  <meta name="DC.rights" content="{{ site.licence }}">
+  <script type="application/ld+json">{{ {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "genre": format,
+    "author": { "@type": "Person", "name": author or site.author, "sameAs": site.orcid or undefined },
+    "datePublished": page.date | isoDate,
+    "dateModified": (updated or page.date) | isoDate,
+    "version": version,
+    "isPartOf": { "@type": "Periodical", "name": site.title },
+    "license": site.licence_url,
+    "identifier": case_id or doi or undefined
+  } | toJson | safe }}</script>
+{%- endif %}

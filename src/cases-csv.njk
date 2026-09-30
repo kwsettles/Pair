@@ -1,0 +1,8 @@
+---
+permalink: /cases/register.csv
+eleventyExcludeFromCollections: true
+---
+case_id,parliament,country,unit,task,function,development,provider_name,deployment_status,first_evidence,last_verified,version,url
+{% for c in collections.cases -%}
+{{ c.data.case_id | csv | safe }},{{ c.data.parliament | csv | safe }},{{ c.data.country | csv | safe }},{{ c.data.unit | csv | safe }},{{ c.data.task | csv | safe }},{{ c.data.function | csv | safe }},{{ c.data.provider | csv | safe }},{{ c.data.provider_name | csv | safe }},{{ c.data.deployment_status | csv | safe }},{{ c.data.first_evidence | isoDate }},{{ c.data.last_verified | isoDate }},{{ c.data.version | csv | safe }},{{ ((site.url or "") + c.url) | csv | safe }}
+{% endfor %}

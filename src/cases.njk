@@ -1,0 +1,39 @@
+---
+layout: base.njk
+nav: cases
+permalink: /cases/
+title: Case Register
+searchType: Case Register
+description: All systems documented on PAIR, with deployment status and the date each status was last verified.
+---
+    <div class="column column--wide">
+      <h1>Case Register</h1>
+      <p class="page-intro">All systems documented on PAIR, with their deployment status and the date that status was last verified.</p>
+      <p class="meta">A selective research record, not a census of parliamentary AI use. Status categories are defined in the <a href="/method/#evidence-labels">Method</a>. Download: <a href="/cases/register.csv">CSV</a> · <a href="/cases/register.json">JSON</a></p>
+
+      {%- if collections.cases.length %}
+      <div class="table-wrap">
+        <table class="register">
+          <caption class="visually-hidden">Documented cases</caption>
+          <thead>
+            <tr><th scope="col">Case ID</th><th scope="col">Parliament</th><th scope="col">Task</th><th scope="col">Status</th><th scope="col">Last verified</th></tr>
+          </thead>
+          <tbody>
+            {%- for c in collections.cases %}
+            <tr>
+              <td><a href="{{ c.url }}">{{ c.data.case_id }}</a></td>
+              <td>{{ c.data.parliament }}{% if c.data.country %}, {{ c.data.country }}{% endif %}</td>
+              <td>{{ c.data.task }}</td>
+              <td>{{ c.data.deployment_status }}</td>
+              <td>{{ c.data.last_verified | longDate if c.data.last_verified else "Not yet verified" }}</td>
+            </tr>
+            {%- endfor %}
+          </tbody>
+        </table>
+      </div>
+      {%- else %}
+      <p class="empty">No cases have been documented yet. The register will list each system with its case ID, parliament, task, deployment status and the date the status was last verified.</p>
+      {%- endif %}
+
+      <p class="meta">Case IDs follow the pattern PAIR-[country]-[chamber]-[number] and are never reused. Please cite a register entry with its case ID and the date you accessed the register.</p>
+    </div>

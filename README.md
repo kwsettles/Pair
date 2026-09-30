@@ -7,11 +7,22 @@ Static research blog built with [Eleventy](https://www.11ty.dev). Hosted on GitH
 2. Choose this repository. The sidebar shows Notes, About, Method, the Notes-page texts, Legal notice, Privacy and Site settings.
 3. Saving creates a commit. GitHub Actions rebuilds the site; the change is live after about a minute (tab "Actions" shows progress).
 
-## Adding a note
-In Pages CMS: Notes → Add. The file name comes from the title and becomes the permanent address (`/notes/<file-name>/`). Do not rename a note after it has been shared or cited.
+## Formats
+- **Brief, Comparative Note, Editorial**: Pages CMS → Notes → Add. The file name comes from the title and becomes the permanent address (`/notes/<file-name>/`). Do not rename a note after it has been shared or cited. Link a note to cases by entering their case IDs.
+- **Case Profile**: Pages CMS → Case Profiles → Add. The address is built from the case ID (`/cases/pair-deu-bt-001/`), so the case ID must never change or be reused.
+- **Case Register** (`/cases/`, plus `/cases/register.csv` and `/cases/register.json`) is generated automatically from all case profiles.
 
-Fill in: title, date, category, status, version, excerpt, text, AI-use note, sources, version history.
-Convention: a substantive text change raises the version and adds a line to the version history; layout changes do not.
+Conventions:
+- A substantive text change raises the version and adds a line to the version history; layout changes do not.
+- "Published" switches on the suggested citation, BibTeX and citation metadata. Drafts say "please do not cite".
+- Every source gets a source type (Institutional, Supplier, Media, Interview, PAIR inference).
+- Footnotes: write `[^1]` in the text and `[^1]: …` at the end of the text.
+
+## Paragraph numbers
+Top-level paragraphs in contributions are numbered automatically and get anchors `#p1`, `#p2`, … Inserting a paragraph shifts all later numbers, so after publication add new material at the end or in a new version and note it in the version history.
+
+## Layout specimens (preview only)
+`src/specimens/` holds placeholder pages that show the Brief and Case Profile layouts. They are not part of the live site. To see them locally: `PAIR_SPECIMENS=1 npm start`.
 
 ## Headings and anchors
 Headings get ids from their text: "How AI is used" → `#how-ai-is-used`. The footer and several pages link to `/about/#how-ai-is-used`; if you rename that heading, update those links.

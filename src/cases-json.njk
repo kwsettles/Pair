@@ -1,0 +1,9 @@
+---
+permalink: /cases/register.json
+eleventyExcludeFromCollections: true
+---
+[
+{%- for c in collections.cases %}
+  {{ { case_id: c.data.case_id, parliament: c.data.parliament, country: c.data.country, unit: c.data.unit, task: c.data.task, function: c.data.function, development: c.data.provider, provider_name: c.data.provider_name, deployment_status: c.data.deployment_status, first_evidence: c.data.first_evidence | isoDate, last_verified: c.data.last_verified | isoDate, version: c.data.version, url: (site.url or "") + c.url } | toJson | safe }}{% if not loop.last %},{% endif %}
+{%- endfor %}
+]

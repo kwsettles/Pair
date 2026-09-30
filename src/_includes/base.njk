@@ -10,6 +10,7 @@
   <meta name="description" content="{{ description or 'Notes on how parliaments use AI. A research blog by Kevin W. Settles.' }}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  {%- include "meta.njk" %}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -37,6 +38,7 @@
     <div class="site-nav__inner">
       <ul>
         <li><a href="/"{% if nav == "notes" %} aria-current="page"{% endif %}>Notes</a></li>
+        <li><a href="/cases/"{% if nav == "cases" %} aria-current="page"{% endif %}>Cases</a></li>
         <li><a href="/method/"{% if nav == "method" %} aria-current="page"{% endif %}>Method</a></li>
         <li><a href="/about/"{% if nav == "about" %} aria-current="page"{% endif %}>About</a></li>
       </ul>
@@ -55,6 +57,7 @@
       <span class="copyright">© 2026 {{ site.author }} · <a href="/legal-notice/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
     </div>
   </footer>
+  <script src="/assets/cite.js" defer></script>
   {%- if scripts %}{% for s in scripts %}
   <script src="{{ s }}"></script>{% endfor %}{% endif %}
 </body>

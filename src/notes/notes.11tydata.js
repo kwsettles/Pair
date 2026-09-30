@@ -2,6 +2,7 @@
 export default {
   layout: "note.njk",
   nav: "notes",
-  searchType: "Note",
+  contribution: true,
   permalink: (data) => `/notes/${data.page.fileSlug}/`,
+  eleventyComputed: { searchType: (data) => data.format || "Note" },
 };

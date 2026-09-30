@@ -1,0 +1,25 @@
+{#- Suggested citation. Shown only for published contributions; drafts say so. -#}
+        <h2 id="citation">How to cite</h2>
+        {%- if citation %}
+        <p>{{ citation }}</p>
+        {%- elif published %}
+        {%- set url = (site.url or "[site address]") + page.url %}
+        {%- set label = format + (", " + case_id if case_id else "") + ", version " + version %}
+        <p class="cite-text" id="cite-text">{{ site.author_bibtex }} ({{ page.date | year }}). {{ title }}. <i>{{ site.title }}</i>. {{ label }}, {{ (updated or page.date) | longDate }}. {% if doi %}https://doi.org/{{ doi }}{% else %}{{ url }}{% endif %}</p>
+        <details class="bibtex">
+          <summary>BibTeX</summary>
+<pre id="cite-bib">@misc{settles{{ page.date | year }}{{ page.fileSlug | slug | replace("-", "") | truncate(24, true, "") }},
+  author       = { {{- site.author_bibtex -}} },
+  title        = { {{- title -}} },
+  howpublished = { {{- site.title -}} },
+  year         = { {{- page.date | year -}} },
+  note         = { {{- label -}} },
+  url          = { {{- url -}} }{% if doi %},
+  doi          = { {{- doi -}} }{% endif %}
+}</pre>
+        </details>
+        <p class="cite-actions"><button type="button" class="copy" data-copy="cite-text">Copy citation</button> <button type="button" class="copy" data-copy="cite-bib">Copy BibTeX</button></p>
+        <p class="muted">Pinpoint references: each paragraph is numbered; link to it with #p1, #p2 and so on.{% if not doi %} No DOI has been registered for this contribution.{% endif %}</p>
+        {%- else %}
+        <p class="muted">Draft, not yet published. Please do not cite. A suggested citation will appear here on publication. No DOI has been registered.</p>
+        {%- endif %}
