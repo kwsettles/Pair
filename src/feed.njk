@@ -1,0 +1,30 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+{%- set base = site.url or "" -%}
+{%- set items = collections.contributions | published -%}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>{{ site.title }}</title>
+  <subtitle>Published contributions: Briefs, Case Profiles, Comparative Notes and Editorials.</subtitle>
+  <link href="{{ base }}/feed.xml" rel="self"/>
+  <link href="{{ base }}/"/>
+  <id>{{ base }}/</id>
+  <updated>{% if items.length %}{{ ((items[0].data.updated or items[0].date) | isoDate) }}T00:00:00Z{% else %}2026-09-30T00:00:00Z{% endif %}</updated>
+  <rights>{{ site.licence }}</rights>
+  {%- for n in items %}
+  <entry>
+    <title>{{ n.data.title }}</title>
+    <link href="{{ base }}{{ n.url }}"/>
+    <id>{{ base }}{{ n.url }}</id>
+    <published>{{ n.date | isoDate }}T00:00:00Z</published>
+    <updated>{{ (n.data.updated or n.date) | isoDate }}T00:00:00Z</updated>
+    {%- for a in people | pick(n.data.authors) %}
+    <author><name>{{ a.name }}</name></author>
+    {%- endfor %}
+    <category term="{{ n.data.format }}"/>
+    <summary>{{ n.data.standfirst or n.data.summary or n.data.description }}</summary>
+  </entry>
+  {%- endfor %}
+</feed>

@@ -40,6 +40,10 @@ Selection, interpretation and the decision to publish are my responsibility. “
 
 ORCID: *[to be added]*
 
+## Contributors
+
+PAIR will also publish contributions by other researchers. Authors are responsible for their contributions. The editor is responsible for selecting them and for editorial review, which is not peer review. Every contribution names its authors, their competing interests and the AI assistance used. Guidelines are on the [Contribute](/contribute/) page.
+
 ## Relationships and access
 
 *[To be written by Kevin before publication. This section should name any research access, collaborations, fellowships, advisory roles or other relationships with parliaments, their administrations or suppliers that PAIR reports on.]*
@@ -54,7 +58,7 @@ Proposed rule: where a contribution concerns an institution or supplier with whi
 
 AI is part of the workflow behind this project. ChatGPT has been used to build the initial website and draft its initial editorial text, including this page. These texts are still drafts awaiting my review.
 
-The current version of the website was built with Claude (Anthropic, Claude Opus 5.5) from a written specification that includes the editorial texts. Claude implemented the design, pages, navigation, local search, the case register, the citation features, the editing setup and the placeholder pages for the legal notice and privacy information. It drafted the sections on formats, relationships and access, funding, licence, preservation and contact on this page, the evidence labels on the Method page, and the notes on its own involvement. Kevin has not yet reviewed this implementation or these sections.
+The current version of the website was built with Claude (Anthropic, Claude Opus 5.5) from a written specification that includes the editorial texts. Claude implemented the design, pages, navigation, local search, the case register, the citation features, support for several authors, the newsletter pages, the editing setup and the placeholder pages for the legal notice and privacy information. It drafted the sections on formats, contributors, relationships and access, funding, licence, preservation, newsletter and contact on this page, the Contribute and Newsletter pages, the evidence labels on the Method page, and the notes on its own involvement. Kevin has not yet reviewed this implementation or these sections.
 
 For future contributions, AI may help find sources, organise material, produce preliminary summaries or translations, and draft or edit text. Each contribution will state the substantive assistance actually used. AI output will not be treated as a source or as independent confirmation of a claim.
 
@@ -83,6 +87,10 @@ Texts on PAIR are published under the [Creative Commons Attribution 4.0 Internat
 ## Preservation
 
 Case Profiles, Comparative Notes and dated states of the Case Register are to be archived with version-specific DOIs on Zenodo. No DOI has been registered yet. No ISSN has been registered.
+
+## Newsletter
+
+PAIR Monthly summarises new contributions and case updates. Every issue is archived on the [Newsletter](/newsletter/) page. A feed of all published contributions is available at [/feed.xml](/feed.xml).
 
 ## Contact
 

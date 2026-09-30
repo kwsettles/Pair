@@ -1,0 +1,2 @@
+{%- set team = people | pick(authors) -%}
+<p class="byline">{% for p in team %}<a href="/contributors/{{ p.id }}/">{{ p.name }}</a>{% if loop.revindex == 2 %} and {% elif not loop.last %}, {% endif %}{% endfor %}</p>

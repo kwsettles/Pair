@@ -39,6 +39,10 @@ content:
       - { name: standfirst, label: Standfirst, type: text }
       - { name: excerpt, label: Excerpt on the Notes page (blank line between paragraphs), type: text }
       - { name: body, label: Text, type: rich-text }
+      - { name: authors, label: "Author IDs (from People; leave empty for the editor)", type: string, list: true }
+      - { name: received, label: Received (guest contributions), type: date }
+      - { name: accepted, label: Accepted (guest contributions), type: date }
+      - { name: competing_interests, label: "Competing interests (state “None declared.” explicitly)", type: text }
       - { name: ai_note, label: AI use and review status, type: text, required: true, description: "Name the tool, the tasks it assisted with and the review status." }
       - name: sources
         label: Sources
@@ -111,6 +115,10 @@ content:
         options: { values: [Draft, Published, Updated, Withdrawn] }
       - { name: version, label: Version, type: string, default: "0.1" }
       - { name: body, label: Text, type: rich-text }
+      - { name: authors, label: "Author IDs (from People; leave empty for the editor)", type: string, list: true }
+      - { name: received, label: Received (guest contributions), type: date }
+      - { name: accepted, label: Accepted (guest contributions), type: date }
+      - { name: competing_interests, label: "Competing interests (state “None declared.” explicitly)", type: text }
       - { name: ai_note, label: AI use and review status, type: text, required: true }
       - name: sources
         label: Sources
@@ -135,6 +143,48 @@ content:
           - { name: version, label: Version, type: string }
           - { name: date, label: Date, type: date }
           - { name: change, label: What changed, type: string }
+
+  - name: newsletter
+    label: Newsletter issues
+    type: collection
+    path: src/newsletter
+    filename: "{month}.md"
+    format: yaml-frontmatter
+    exclude: [newsletter.11tydata.js]
+    view:
+      fields: [month, date, published]
+      primary: month
+      default: { sort: date, order: desc }
+    fields:
+      - { name: date, label: Sending date, type: date, required: true }
+      - { name: month, label: "Month covered (YYYY-MM, e.g. 2026-10). Becomes the address /newsletter/2026-10/", type: string, required: true }
+      - { name: published, label: Published in the archive, type: boolean, default: false }
+      - { name: body, label: "Editor's introduction", type: rich-text, description: "New contributions and case checks of the month are listed automatically below this text." }
+
+  - name: people
+    label: People (authors)
+    type: file
+    path: src/_data/people.json
+    format: json
+    list: true
+    fields:
+      - { name: id, label: "ID (lowercase-with-hyphens, never change)", type: string, required: true }
+      - { name: name, label: Name, type: string, required: true }
+      - { name: bibtex, label: "Name for citations (Surname, First names)", type: string, required: true }
+      - { name: role, label: "Role (Editor, Contributor)", type: string }
+      - { name: affiliation, label: Affiliation, type: string }
+      - { name: orcid, label: ORCID URL, type: string }
+      - { name: bio, label: Short bio (one sentence), type: text }
+
+  - name: contribute
+    label: Contribute page
+    type: file
+    path: src/contribute.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Title, type: string }
+      - { name: body, label: Text, type: rich-text }
+      - { name: draft_note, label: Note at the end, type: text }
 
   - name: about
     label: About page
@@ -195,10 +245,19 @@ content:
     fields:
       - { name: title, label: Site title, type: string }
       - { name: author, label: Author, type: string }
-      - { name: author_bibtex, label: "Author for BibTeX (Surname, First names)", type: string }
-      - { name: orcid, label: ORCID URL, type: string }
+      - { name: editor, label: "Editor's ID in People", type: string }
+      - { name: contributions_open, label: Guest contributions open, type: boolean }
       - { name: url, label: "Site address, without trailing slash (used in citations)", type: string }
       - { name: licence, label: Licence, type: string }
       - { name: licence_url, label: Licence URL, type: string }
       - { name: previewLabel, label: Preview label in navigation (empty to hide), type: string }
       - { name: noindex, label: Hide from search engines, type: boolean, description: "Switch off only when the site is ready to be public." }
+      - name: newsletter
+        label: Newsletter
+        type: object
+        fields:
+          - { name: name, label: Newsletter name, type: string }
+          - { name: provider, label: Service provider, type: string }
+          - { name: form_action, label: "Sign-up form URL from the provider (empty = form hidden)", type: string, description: "Fill in only after the privacy page covers the newsletter." }
+          - { name: email_field, label: "Name of the email field expected by the provider (e.g. EMAIL)", type: string }
+          - { name: privacy_note, label: Extra sentence under the form, type: string }

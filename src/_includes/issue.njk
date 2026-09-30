@@ -1,0 +1,41 @@
+---
+layout: base.njk
+---
+{%- set ic = collections | issueItems(month, specimen) %}
+{%- set newItems = ic.items %}
+{%- set caseUpdates = ic.cases %}
+    <article class="column prose">
+      <p class="meta"><a href="/newsletter/">{{ site.newsletter.name }}</a> · {{ month | monthName }}{% if not published %} · Draft{% endif %}</p>
+      <h1>{{ title }}</h1>
+
+      <div class="issue-intro">
+{{ content | safe }}
+      </div>
+
+      <section class="issue-section">
+        <h2>New contributions</h2>
+        {%- for n in newItems %}
+        <div class="issue-item">
+          <p class="meta"><span class="marker marker--{{ formats[n.data.format].key }}" aria-hidden="true"></span>{{ n.data.format }}{% if n.data.case_id %} · {{ n.data.case_id }}{% endif %} · {{ people | pick(n.data.authors) | nameList }}</p>
+          <h3><a href="{{ n.url }}">{{ n.data.title }}</a></h3>
+          {%- if n.data.standfirst or n.data.summary %}<p>{{ n.data.standfirst or n.data.summary }}</p>{% endif %}
+        </div>
+        {%- else %}
+        <p class="muted">No new contributions this month.</p>
+        {%- endfor %}
+      </section>
+
+      {%- if caseUpdates.length %}
+      <section class="issue-section">
+        <h2>Case status checks</h2>
+        {%- for c in caseUpdates %}
+        <div class="issue-item">
+          <p class="meta">{{ c.data.case_id }} · {{ c.data.deployment_status }} · verified {{ c.data.last_verified | longDate }}</p>
+          <h3><a href="{{ c.url }}">{{ c.data.title }}</a></h3>
+        </div>
+        {%- endfor %}
+      </section>
+      {%- endif %}
+
+      <p class="meta" style="margin-top:32px">Email version for the newsletter service: <a href="{{ page.url }}email.html">{{ page.url }}email.html</a></p>
+    </article>

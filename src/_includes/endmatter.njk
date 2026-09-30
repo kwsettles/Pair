@@ -5,6 +5,17 @@
         {%- endfor %}
         <p><a href="/about/#how-ai-is-used">AI-use statement</a></p>
 
+        <h2 id="competing-interests">Competing interests</h2>
+        <p{% if not competing_interests %} class="muted"{% endif %}>{{ competing_interests or "Not yet stated." }}</p>
+
+        {%- set team = people | pick(authors) %}
+        {%- if site.editor not in authors or team.length > 1 %}
+        <h2 id="authors">About the {{ "authors" if team.length > 1 else "author" }}</h2>
+        {%- for a in team %}
+        <p><a href="/contributors/{{ a.id }}/">{{ a.name }}</a>{% if a.affiliation %}, {{ a.affiliation }}{% endif %}. {{ a.bio }}{% if a.orcid %} <a href="{{ a.orcid }}">ORCID</a>{% endif %}</p>
+        {%- endfor %}
+        {%- endif %}
+
         <h2 id="sources">Sources</h2>
         {%- if sources and sources.length %}
         <ol class="sources">

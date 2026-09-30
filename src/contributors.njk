@@ -1,0 +1,35 @@
+---
+layout: base.njk
+pagination:
+  data: people
+  size: 1
+  alias: person
+permalink: "/contributors/{{ person.id }}/"
+eleventyComputed:
+  title: "{{ person.name }}"
+---
+    <div class="column">
+      <p class="meta">{{ person.role or "Contributor" }}</p>
+      <h1>{{ person.name }}</h1>
+      {%- if person.affiliation %}
+      <p class="byline">{{ person.affiliation }}</p>
+      {%- endif %}
+      {%- if person.bio %}
+      <p>{{ person.bio }}</p>
+      {%- endif %}
+      {%- if person.orcid %}
+      <p class="meta">ORCID: <a href="{{ person.orcid }}">{{ person.orcid }}</a></p>
+      {%- endif %}
+
+      <h2 class="section-label" style="margin-top:40px">Contributions</h2>
+      {%- set mine = collections.contributions | byAuthor(person.id) %}
+      {%- if mine.length %}
+      <ul class="plain-list">
+        {%- for c in mine %}
+        <li><span class="marker marker--{{ formats[c.data.format].key }}" aria-hidden="true"></span><a href="{{ c.url }}">{{ c.data.title }}</a> <span class="meta">· {{ c.data.format }} · {{ c.date | longDate }}{% if not c.data.published %} · Draft{% endif %}</span></li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="muted">No contributions yet.</p>
+      {%- endif %}
+    </div>

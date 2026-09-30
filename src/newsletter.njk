@@ -1,0 +1,35 @@
+---
+layout: base.njk
+permalink: /newsletter/
+title: Newsletter
+searchType: Newsletter
+description: PAIR Monthly, a monthly summary of new contributions and case updates, with an archive of all issues.
+---
+    <div class="column">
+      <h1>{{ site.newsletter.name }}</h1>
+      <p class="page-intro">A monthly summary of new contributions and case updates on PAIR.</p>
+      <p>Issues are sent at the start of a month when there is something new. Months without new material are skipped. Every issue is archived below.</p>
+
+      {%- if site.newsletter.form_action %}
+      <form class="nl-form" action="{{ site.newsletter.form_action }}" method="post">
+        <label class="visually-hidden" for="nl-email">Email address</label>
+        <input id="nl-email" type="email" name="{{ site.newsletter.email_field or 'EMAIL' }}" autocomplete="email" placeholder="Email address" required>
+        <button type="submit">Subscribe</button>
+      </form>
+      <p class="nl-consent">You will first receive an email asking you to confirm your subscription. Every issue contains a link to unsubscribe. {{ site.newsletter.privacy_note }} Details in the <a href="/privacy/#newsletter">privacy information</a>.</p>
+      {%- else %}
+      <p class="empty">The newsletter has not started yet. New contributions can already be followed through the <a href="/feed.xml">feed</a>.</p>
+      {%- endif %}
+
+      <h2 class="section-label" style="margin-top:40px">Archive</h2>
+      {%- set issues = collections.issues %}
+      {%- if issues.length %}
+      <ul class="plain-list issue-list">
+        {%- for i in issues %}
+        <li><a href="{{ i.url }}">{{ i.data.title }}</a>{% if not i.data.published %} <span class="meta">· Draft</span>{% endif %}</li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="muted">No issues yet.</p>
+      {%- endif %}
+    </div>

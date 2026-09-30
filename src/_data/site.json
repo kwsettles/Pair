@@ -1,11 +1,18 @@
 {
   "title": "PAIR · Parliamentary AI Review",
   "author": "Kevin W. Settles",
-  "author_bibtex": "Settles, Kevin W.",
-  "orcid": "",
   "url": "",
   "licence": "CC BY 4.0",
   "licence_url": "https://creativecommons.org/licenses/by/4.0/",
   "previewLabel": "Private editorial preview",
-  "noindex": true
+  "noindex": true,
+  "editor": "kevin-w-settles",
+  "newsletter": {
+    "name": "PAIR Monthly",
+    "provider": "",
+    "form_action": "",
+    "email_field": "EMAIL",
+    "privacy_note": ""
+  },
+  "contributions_open": false
 }

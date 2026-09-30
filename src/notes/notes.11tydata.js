@@ -4,5 +4,7 @@ export default {
   nav: "notes",
   contribution: true,
   permalink: (data) => `/notes/${data.page.fileSlug}/`,
-  eleventyComputed: { searchType: (data) => data.format || "Note" },
+  eleventyComputed: {
+    // Default author is the editor. (Not set as plain data: Eleventy would merge the arrays.)
+    authors: (data) => (data.authors && data.authors.length ? data.authors : [data.site.editor]), searchType: (data) => data.format || "Note" },
 };

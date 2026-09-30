@@ -54,7 +54,8 @@
     <div class="site-footer__inner">
       <span class="footer-name">PAIR · Parliamentary AI Review</span>
       <a href="/about/#how-ai-is-used">AI use &amp; editorial responsibility</a>
-      <span class="copyright">© 2026 {{ site.author }} · <a href="/legal-notice/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
+      <span class="footer-links">{% if site.contributions_open %}<a href="/contribute/">Contribute</a> · {% endif %}<a href="/newsletter/">Newsletter</a> · <a href="/feed.xml">Feed</a></span>
+      <span class="copyright">© 2026 {{ site.author }} and the authors · <a href="/legal-notice/">Legal notice</a> · <a href="/privacy/">Privacy</a></span>
     </div>
   </footer>
   <script src="/assets/cite.js" defer></script>

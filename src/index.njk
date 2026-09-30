@@ -12,7 +12,7 @@ pageTitle: false
           <article class="post-teaser">
             <p class="meta post-teaser__meta"><span class="marker marker--{{ formats[note.data.format].key }}" aria-hidden="true"></span><time datetime="{{ note.date | isoDate }}">{{ note.date | longDate }}</time> · {{ note.data.format }} · {{ note.data.status }}</p>
             <h2><a href="{{ note.url }}">{{ note.data.title }}</a></h2>
-            <p class="byline">{{ note.data.author or site.author }}</p>
+            <p class="byline">{{ people | pick(note.data.authors) | nameList }}</p>
             {%- for p in note.data.excerpt | paragraphs %}
             <p>{{ p }}</p>
             {%- endfor %}

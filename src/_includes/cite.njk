@@ -4,12 +4,13 @@
         <p>{{ citation }}</p>
         {%- elif published %}
         {%- set url = (site.url or "[site address]") + page.url %}
+        {%- set team = people | pick(authors) %}
         {%- set label = format + (", " + case_id if case_id else "") + ", version " + version %}
-        <p class="cite-text" id="cite-text">{{ site.author_bibtex }} ({{ page.date | year }}). {{ title }}. <i>{{ site.title }}</i>. {{ label }}, {{ (updated or page.date) | longDate }}. {% if doi %}https://doi.org/{{ doi }}{% else %}{{ url }}{% endif %}</p>
+        <p class="cite-text" id="cite-text">{{ team | citeNames }} ({{ page.date | year }}). {{ title }}. <i>{{ site.title }}</i>. {{ label }}, {{ (updated or page.date) | longDate }}. {% if doi %}https://doi.org/{{ doi }}{% else %}{{ url }}{% endif %}</p>
         <details class="bibtex">
           <summary>BibTeX</summary>
-<pre id="cite-bib">@misc{settles{{ page.date | year }}{{ page.fileSlug | slug | replace("-", "") | truncate(24, true, "") }},
-  author       = { {{- site.author_bibtex -}} },
+<pre id="cite-bib">@misc{ {{- team | firstSurname }}{{ page.date | year }}{{ page.fileSlug | slug | replace("-", "") | truncate(24, true, "") }},
+  author       = { {{- team | bibNames -}} },
   title        = { {{- title -}} },
   howpublished = { {{- site.title -}} },
   year         = { {{- page.date | year -}} },

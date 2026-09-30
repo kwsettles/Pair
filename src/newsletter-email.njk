@@ -1,0 +1,60 @@
+---
+pagination:
+  data: collections.emailIssues
+  size: 1
+  alias: issue
+  addAllPagesToCollections: false
+permalink: "{{ issue.url }}email.html"
+eleventyExcludeFromCollections: true
+---
+{%- set month = issue.data.month %}
+{%- set specimen = issue.data.specimen %}
+{%- set ic = collections | issueItems(month, specimen) %}
+{%- set newItems = ic.items %}
+{%- set caseUpdates = ic.cases %}
+{%- set base = site.url or "[site address]" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{{ issue.data.title }}</title>
+</head>
+<body style="margin:0;padding:0;background:#FAF9F7;">
+<!-- Email-safe version: tables and inline styles only. Paste into the newsletter service as HTML. -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FAF9F7;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;">
+  <tr><td style="background:#1F1F1F;padding:20px 24px;">
+    <div style="font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1;color:#FAF9F7;">P<i>AI</i>R</div>
+    <div style="font-family:Georgia,'Times New Roman',serif;font-size:14px;color:#FAF9F7;padding-top:6px;">{{ site.newsletter.name }} · {{ month | monthName }}</div>
+  </td></tr>
+  <tr><td style="background:#7A802F;height:4px;font-size:0;line-height:0;">&nbsp;</td></tr>
+  <tr><td style="padding:24px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1F1F1F;background:#FFFFFF;">
+    <div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1F1F1F;">{{ issue.content | emailify | safe }}</div>
+    <h2 style="font-family:Georgia,'Times New Roman',serif;font-weight:normal;font-size:22px;margin:28px 0 8px;color:#1F1F1F;">New contributions</h2>
+    {%- for n in newItems %}
+    <p style="margin:0 0 4px;font-size:13px;color:#66635F;">{{ n.data.format }}{% if n.data.case_id %} · {{ n.data.case_id }}{% endif %} · {{ people | pick(n.data.authors) | nameList }}</p>
+    <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;font-size:19px;"><a href="{{ base }}{{ n.url }}" style="color:#5E6325;">{{ n.data.title }}</a></p>
+    {%- if n.data.standfirst or n.data.summary %}<p style="margin:0 0 18px;font-size:15px;">{{ n.data.standfirst or n.data.summary }}</p>{% endif %}
+    {%- else %}
+    <p style="color:#66635F;">No new contributions this month.</p>
+    {%- endfor %}
+    {%- if caseUpdates.length %}
+    <h2 style="font-family:Georgia,'Times New Roman',serif;font-weight:normal;font-size:22px;margin:28px 0 8px;color:#1F1F1F;">Case status checks</h2>
+    {%- for c in caseUpdates %}
+    <p style="margin:0 0 10px;font-size:15px;"><a href="{{ base }}{{ c.url }}" style="color:#5E6325;">{{ c.data.case_id }}: {{ c.data.title }}</a> · {{ c.data.deployment_status }}, verified {{ c.data.last_verified | longDate }}</p>
+    {%- endfor %}
+    {%- endif %}
+  </td></tr>
+  <tr><td style="padding:16px 24px;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.5;color:#66635F;">
+    Read this issue online: <a href="{{ base }}{{ issue.url }}" style="color:#5E6325;">{{ base }}{{ issue.url }}</a><br>
+    {{ site.title }} · Editor: {{ site.author }} · <a href="{{ base }}/legal-notice/" style="color:#5E6325;">Legal notice</a> · <a href="{{ base }}/privacy/" style="color:#5E6325;">Privacy</a><br>
+    [Unsubscribe link: insert the newsletter service's unsubscribe placeholder here]
+  </td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

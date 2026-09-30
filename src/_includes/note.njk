@@ -5,7 +5,7 @@ layout: base.njk
       <header class="article-header">
         <p class="meta"><span class="marker marker--{{ formats[format].key }}" aria-hidden="true"></span>{{ format }} · {{ status }} · Version {{ version }}</p>
         <h1>{{ title }}</h1>
-        <p class="byline">{{ author or site.author }}</p>
+        {% include "byline.njk" %}
         {%- if standfirst %}
         <p class="standfirst">{{ standfirst }}</p>
         {%- endif %}
@@ -17,6 +17,15 @@ layout: base.njk
           {%- endif %}
           {%- if not published %}
           <dt>Published</dt><dd>Not yet published</dd>
+          {%- endif %}
+          {%- if received %}
+          <dt>Received</dt><dd><time datetime="{{ received | isoDate }}">{{ received | longDate }}</time></dd>
+          {%- endif %}
+          {%- if accepted %}
+          <dt>Accepted</dt><dd><time datetime="{{ accepted | isoDate }}">{{ accepted | longDate }}</time></dd>
+          {%- endif %}
+          {%- if site.editor not in authors %}
+          <dt>Review</dt><dd>Editorial review by {{ (people | pick([site.editor]))[0].name }}. Not peer reviewed.</dd>
           {%- endif %}
           {%- if cases and cases.length %}
           <dt>Cases</dt><dd>{% for id in cases %}{% set c = collections.cases | caseById(id) %}{% if c %}<a href="{{ c.url }}">{{ id }}</a>{% else %}{{ id }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</dd>

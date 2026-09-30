@@ -552,3 +552,37 @@ button.copy:hover { background: var(--tint); }
   h2, h3 { break-after: avoid; }
   p, li { orphans: 3; widows: 3; }
 }
+
+/* ---------- Lists, contributors, newsletter ---------- */
+
+.plain-list { list-style: none; padding: 0; margin: 0; }
+.plain-list li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.site-footer .footer-links { flex-basis: 100%; }
+.nl-form { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
+.nl-form input[type="email"] {
+  flex: 1 1 240px;
+  min-width: 0;
+  font: inherit;
+  font-size: 17px;
+  padding: 10px 12px;
+  border: 1px solid var(--muted);
+  border-radius: 0;
+  background: #FFFFFF;
+  color: var(--text);
+}
+.nl-form button {
+  font: inherit;
+  font-size: 16px;
+  padding: 10px 16px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--on-header);
+  cursor: pointer;
+}
+.nl-consent { font-size: 14px; color: var(--muted); line-height: 1.55; }
+.issue-list .meta { display: block; }
+.issue-section { margin-top: 36px; }
+.issue-section h2 { font-size: 22px; }
+.issue-item { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.issue-item h3 { font-size: 20px; margin: 2px 0 4px; }
+.issue-item p { margin: 0; font-size: 16px; }

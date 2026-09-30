@@ -48,6 +48,14 @@ export default function (cfg) {
   cfg.addCollection("cases", (api) =>
     api.getFilteredByGlob("src/cases/*.md").sort((a, b) => String(a.data.case_id).localeCompare(String(b.data.case_id))));
   cfg.addCollection("specimens", (api) => api.getFilteredByGlob("src/specimens/*.md"));
+  cfg.addCollection("contributions", (api) =>
+    [...api.getFilteredByGlob("src/notes/*.md"), ...api.getFilteredByGlob("src/cases/*.md")].sort(byDateDesc));
+  cfg.addCollection("issues", (api) => api.getFilteredByGlob("src/newsletter/*.md").sort(byDateDesc));
+  // Issues that get an email version (includes the preview specimen when specimens are built).
+  cfg.addCollection("emailIssues", (api) => [
+    ...api.getFilteredByGlob("src/newsletter/*.md"),
+    ...api.getFilteredByGlob("src/specimens/*.md").filter((i) => i.data.layout === "issue.njk"),
+  ]);
   cfg.addCollection("searchable", (api) => api.getAll().filter((p) => p.data.searchType));
 
   const fmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
@@ -68,6 +76,43 @@ export default function (cfg) {
     const s = v == null ? "" : String(v);
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   });
+  // Authors: front matter lists ids (authors: [kevin-w-settles]); people.json holds the details.
+  cfg.addFilter("pick", (people, ids) => (ids || []).map((id) => (people || []).find((p) => p.id === id) || { id, name: id, bibtex: id }));
+  cfg.addFilter("nameList", (list) => {
+    const n = (list || []).map((p) => p.name);
+    return n.length <= 2 ? n.join(" and ") : n.slice(0, -1).join(", ") + " and " + n.at(-1);
+  });
+  // "Settles, K. W., & Doe, J." style for the suggested citation.
+  cfg.addFilter("citeNames", (list) => {
+    const n = (list || []).map((p) => p.bibtex || p.name);
+    return n.length <= 1 ? n.join("") : n.slice(0, -1).join("; ") + " & " + n.at(-1);
+  });
+  cfg.addFilter("bibNames", (list) => (list || []).map((p) => p.bibtex || p.name).join(" and "));
+  cfg.addFilter("firstSurname", (list) => String(((list || [])[0] || {}).bibtex || "anon").split(",")[0].toLowerCase().replace(/[^a-z]/g, ""));
+  cfg.addFilter("personLd", (list) => (list || []).map((p) => ({ "@type": "Person", name: p.name, sameAs: p.orcid || undefined, affiliation: p.affiliation || undefined })));
+  cfg.addFilter("byAuthor", (items, id) => (items || []).filter((i) => (i.data.authors || []).includes(id)));
+  cfg.addFilter("inMonth", (items, month) => (items || []).filter((i) =>
+    i.data.published && !i.data.specimen && new Date(i.date).toISOString().slice(0, 7) === month));
+  cfg.addFilter("verifiedInMonth", (items, month) => (items || []).filter((i) =>
+    i.data.last_verified && new Date(i.data.last_verified).toISOString().slice(0, 7) === month));
+  // Contents of a newsletter issue: contributions first published in the month, and cases
+  // whose status was verified in the month. The preview specimen lists the layout specimens.
+  cfg.addFilter("issueItems", (collections, month, specimen) => specimen
+    ? { items: (collections.specimens || []).filter((i) => i.data.format), cases: [] }
+    : {
+        items: (collections.contributions || []).filter((i) => i.data.published && new Date(i.date).toISOString().slice(0, 7) === month),
+        cases: (collections.cases || []).filter((i) => i.data.published && i.data.last_verified && new Date(i.data.last_verified).toISOString().slice(0, 7) === month),
+      });
+  cfg.addFilter("monthName", (m) => new Intl.DateTimeFormat("en-GB", { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(m + "-01")));
+  cfg.addFilter("published", (items) => (items || []).filter((i) => i.data.published));
+  // Minimal inline styling for Markdown HTML in the email version of an issue.
+  cfg.addFilter("emailify", (html) => String(html || "")
+    .replace(/<a class="pnum"[^>]*>\d+<\/a>/g, "")
+    .replace(/<p( id="[^"]*")?>/g, '<p style="margin:0 0 14px;">')
+    .replace(/<a href=/g, '<a style="color:#5E6325;" href=')
+    .replace(/<h2[^>]*>/g, '<h2 style="font-family:Georgia,serif;font-weight:normal;font-size:22px;margin:24px 0 8px;">'));
+  cfg.addFilter("absUrl", (u, base) => (base || "") + u);
+
   // Notes that refer to a given case id.
   cfg.addFilter("notesForCase", (notes, id) => (notes || []).filter((n) => (n.data.cases || []).includes(id)));
   cfg.addFilter("caseById", (cases, id) => (cases || []).find((c) => c.data.case_id === id));

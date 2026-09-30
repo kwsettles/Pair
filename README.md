@@ -18,6 +18,18 @@ Conventions:
 - Every source gets a source type (Institutional, Supplier, Media, Interview, PAIR inference).
 - Footnotes: write `[^1]` in the text and `[^1]: …` at the end of the text.
 
+## Guest contributions
+1. Pages CMS → People → add the author (ID, name, name for citations, affiliation, ORCID, one-sentence bio).
+2. In the note or case profile, enter the author ID(s) under "Author IDs". Empty = the editor.
+3. Fill in received and accepted dates and the competing-interests statement. For contributions without the editor as author, the page automatically shows "Editorial review by … Not peer reviewed."
+4. Site settings → "Guest contributions open" adds the Contribute link to the footer.
+
+## Newsletter (PAIR Monthly)
+- Issues live in Pages CMS → Newsletter issues. Enter the month covered (YYYY-MM) and a short introduction. New contributions first published in that month, and cases whose status was verified in that month, are listed automatically.
+- Each issue has an email version at `/newsletter/<month>/email.html` (tables and inline styles). Open it, copy the HTML into the newsletter service and replace the unsubscribe placeholder with the service's own unsubscribe tag.
+- The sign-up form appears only when "Sign-up form URL" is set in Site settings. Complete the newsletter section of the privacy page first.
+- `/feed.xml` lists all published contributions (Atom). It needs no service and no personal data.
+
 ## Paragraph numbers
 Top-level paragraphs in contributions are numbered automatically and get anchors `#p1`, `#p2`, … Inserting a paragraph shifts all later numbers, so after publication add new material at the end or in a new version and note it in the version history.
 

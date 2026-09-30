@@ -5,7 +5,7 @@ layout: base.njk
       <header class="article-header article-header--case">
         <p class="meta"><span class="marker marker--case" aria-hidden="true"></span>Case Profile · {{ case_id }} · {{ status }} · Version {{ version }}</p>
         <h1>{{ title }}</h1>
-        <p class="byline">{{ author or site.author }}</p>
+        {% include "byline.njk" %}
         {%- if summary %}
         <p class="standfirst">{{ summary }}</p>
         {%- endif %}
@@ -31,6 +31,9 @@ layout: base.njk
         <dt>Last revised</dt><dd><time datetime="{{ (updated or page.date) | isoDate }}">{{ (updated or page.date) | longDate }}</time> (v{{ version }})</dd>
         {%- if not published %}
         <dt>Published</dt><dd>Not yet published</dd>
+        {%- endif %}
+        {%- if site.editor not in authors %}
+        <dt>Review</dt><dd>Editorial review by {{ (people | pick([site.editor]))[0].name }}. Not peer reviewed.</dd>
         {%- endif %}
       </dl>
 
