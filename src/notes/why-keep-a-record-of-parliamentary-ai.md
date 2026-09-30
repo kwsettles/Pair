@@ -4,7 +4,6 @@ date: 2026-09-29
 updated: 2026-09-29
 published: false
 format: Editorial
-status: Draft
 version: "0.2"
 description: An opening note on what PAIR hopes to contribute.
 standfirst: My monitoring keeps turning up developments that deserve a closer look. A research paper cannot be the place for every one of them.

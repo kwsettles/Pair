@@ -19,7 +19,6 @@ last_verified: 2026-09-30
 date: 2026-09-30
 updated: 2026-09-30
 published: true
-status: Published
 version: "1.0"
 ai_note: "[Layout specimen. Placeholder text only, no case content.]"
 sources:

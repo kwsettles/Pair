@@ -6,6 +6,11 @@ import markdownItFootnote from "markdown-it-footnote";
 // built for previews: PAIR_SPECIMENS=1 npx @11ty/eleventy
 const SPECIMENS = !!process.env.PAIR_SPECIMENS;
 
+// Drafts are shown on the site only while "Show drafts" is on in Site settings (preview phase).
+import { readFileSync } from "node:fs";
+const SITE = JSON.parse(readFileSync(new URL("./src/_data/site.json", import.meta.url)));
+const visible = (items) => (SITE.show_drafts ? items : items.filter((i) => i.data.published));
+
 export default function (cfg) {
   cfg.addPlugin(HtmlBasePlugin);
   if (!SPECIMENS) cfg.ignores.add("src/specimens/**");
@@ -44,19 +49,19 @@ export default function (cfg) {
   cfg.addPassthroughCopy({ "src/assets": "assets" });
 
   const byDateDesc = (a, b) => b.date - a.date;
-  cfg.addCollection("notes", (api) => api.getFilteredByGlob("src/notes/*.md").sort(byDateDesc));
+  cfg.addCollection("notes", (api) => visible(api.getFilteredByGlob("src/notes/*.md")).sort(byDateDesc));
   cfg.addCollection("cases", (api) =>
-    api.getFilteredByGlob("src/cases/*.md").sort((a, b) => String(a.data.case_id).localeCompare(String(b.data.case_id))));
+    visible(api.getFilteredByGlob("src/cases/*.md")).sort((a, b) => String(a.data.case_id).localeCompare(String(b.data.case_id))));
   cfg.addCollection("specimens", (api) => api.getFilteredByGlob("src/specimens/*.md"));
   cfg.addCollection("contributions", (api) =>
-    [...api.getFilteredByGlob("src/notes/*.md"), ...api.getFilteredByGlob("src/cases/*.md")].sort(byDateDesc));
-  cfg.addCollection("issues", (api) => api.getFilteredByGlob("src/newsletter/*.md").sort(byDateDesc));
+    visible([...api.getFilteredByGlob("src/notes/*.md"), ...api.getFilteredByGlob("src/cases/*.md")]).sort(byDateDesc));
+  cfg.addCollection("issues", (api) => visible(api.getFilteredByGlob("src/newsletter/*.md")).sort(byDateDesc));
   // Issues that get an email version (includes the preview specimen when specimens are built).
   cfg.addCollection("emailIssues", (api) => [
     ...api.getFilteredByGlob("src/newsletter/*.md"),
     ...api.getFilteredByGlob("src/specimens/*.md").filter((i) => i.data.layout === "issue.njk"),
   ]);
-  cfg.addCollection("searchable", (api) => api.getAll().filter((p) => p.data.searchType));
+  cfg.addCollection("searchable", (api) => api.getAll().filter((p) => p.data.searchType && (p.data.published || SITE.show_drafts || !p.data.contribution)));
 
   const fmt = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
   cfg.addFilter("longDate", (d) => (d ? fmt.format(new Date(d)) : ""));

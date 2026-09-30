@@ -28,7 +28,7 @@ pageTitle: false
         <p class="more"><a href="/about/">{{ home.about_link }}</a></p>
       </section>
 
-      {%- if home.draft_note %}
+      {%- if home.draft_note and site.show_drafts %}
       <div class="draft-note">
         <p>{{ home.draft_note }}</p>
         <p><a href="/about/#how-ai-is-used">AI-use statement</a></p>

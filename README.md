@@ -1,5 +1,27 @@
 # PAIR · Parliamentary AI Review
 
+## Kurzanleitung: Posten
+
+**Neuer Beitrag** (im Browser, ca. 2 Minuten)
+1. https://app.pagescms.org öffnen → mit GitHub anmelden → Repository wählen.
+2. Links **Posts** → **Add entry**.
+3. Ausfüllen: *Title*, *Format*, *Date*, *Standfirst*, *Text*, *AI use and review status*.
+4. **Published** einschalten → **Save**.
+5. Nach etwa einer Minute ist der Beitrag online (Fortschritt: Repository → Reiter *Actions*).
+
+Alles unterhalb von *Published* ist optional und kann leer bleiben: Version, Versionsgeschichte, Teaser und Status werden automatisch gesetzt.
+
+**Beitrag ändern**
+- Posts → Beitrag öffnen → Text ändern → Save.
+- Bei inhaltlicher Änderung eines veröffentlichten Beitrags zusätzlich: *Last revised* setzen, *Version* erhöhen (z. B. 1.1) und eine Zeile in der *Version history* ergänzen. Tippfehler brauchen keine neue Version.
+- Nach Veröffentlichung keine Absätze in der Mitte einfügen (Absatznummern verschieben sich) und den Titel nicht ändern, wenn der Link schon geteilt wurde (die Adresse entsteht beim Anlegen aus dem Titel).
+
+**Entwurf**: *Published* aus lassen. Solange in *Site settings* „Show drafts“ an ist (Vorschau-Phase), erscheinen Entwürfe als „Draft“ auf der Seite. Ist es aus, sind Entwürfe unsichtbar. Wichtig: Das Repository ist öffentlich, Entwürfe sind dort immer lesbar.
+
+**Notfall ohne CMS**: Auf github.com im Ordner `src/notes/` die `.md`-Datei öffnen → Stift-Symbol → ändern → *Commit changes*.
+
+---
+
 Static research blog built with [Eleventy](https://www.11ty.dev). Hosted on GitHub Pages, edited in the browser with [Pages CMS](https://pagescms.org). No tracking, no external services at runtime, no costs.
 
 ## Editing in the browser
@@ -15,6 +37,7 @@ Static research blog built with [Eleventy](https://www.11ty.dev). Hosted on GitH
 Conventions:
 - A substantive text change raises the version and adds a line to the version history; layout changes do not.
 - "Published" switches on the suggested citation, BibTeX and citation metadata. Drafts say "please do not cite".
+- Status (Draft / Published / Updated), version (0.1 for drafts, 1.0 when published), teaser and a first version-history line are filled in automatically when left empty (`lib/contribution-defaults.js`).
 - Every source gets a source type (Institutional, Supplier, Media, Interview, PAIR inference).
 - Footnotes: write `[^1]` in the text and `[^1]: …` at the end of the text.
 

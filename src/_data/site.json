@@ -14,5 +14,6 @@
     "email_field": "EMAIL",
     "privacy_note": ""
   },
-  "contributions_open": false
+  "contributions_open": false,
+  "show_drafts": true
 }

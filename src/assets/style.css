@@ -14,9 +14,9 @@
   --rule: #DEDBD5;
   --tint: #EEEFE3;           /* pale chartreuse for highlights */
 
-  /* Format colours (autumn). Chosen so that they stay distinguishable with red-green
-     colour blindness; each format also has its own marker shape, and its name is always
-     printed, so colour is never the only cue. All reach at least 3:1 against the page. */
+  /* Format colours (autumn), chosen to stay as distinguishable as possible with red-green
+     colour blindness. The format name is always printed next to its square, so colour is
+     never the only cue. All reach at least 3:1 against the page. */
   --c-brief: #7A802F;        /* olive / Chartreusy */
   --c-case: #8E3B2A;         /* brick */
   --c-comparative: #A9790F;  /* ochre */
@@ -247,12 +247,11 @@ p { margin: 0 0 1.1em; }
   margin-right: 8px;
   vertical-align: 1px;
 }
-/* One marker per format. Shape and fill differ, so the format never depends on colour alone
-   (the format name is always printed next to it as well). */
-.marker--brief { background: var(--c-brief); }                                   /* square */
-.marker--case { background: var(--c-case); border-radius: 50%; }                   /* disc */
-.marker--comparative { background: transparent; box-shadow: inset 0 0 0 2px var(--c-comparative); } /* ring */
-.marker--editorial { background: var(--c-editorial); width: 10px; height: 3px; vertical-align: 3px; } /* bar */
+/* One colour per format; the format name is always printed next to the square. */
+.marker--brief { background: var(--c-brief); }
+.marker--case { background: var(--c-case); }
+.marker--comparative { background: var(--c-comparative); }
+.marker--editorial { background: var(--c-editorial); }
 
 /* A short rule in the format colour above the title of every contribution. */
 .format-rule { display: block; width: 36px; height: 3px; margin: 0 0 18px; }

@@ -7,7 +7,6 @@ updated: 2026-09-30
 last_verified: 2026-09-30
 published: true
 format: Brief
-status: Published
 version: "1.0"
 cases: ["PAIR-XXX-YY-001"]
 standfirst: "[Standfirst: the development in one or two sentences, with the event date.]"
